@@ -27,13 +27,19 @@
  
  A list of useful cell tags for controling the look of HTML output. 
  
- 
+Tags with 'hide' will hide the content with a toggle button 
 
  - hide-input tag to hide the cell inputs
 
  - hide-output to hide the cell outputs
 
  - hide-cell to hide the entire cell
+ 
+ Whereas tags with 'remove' remove the content from view altogether
+ 
+ - remove-cell to remove cell and its output from the view
+ 
+ - remove-input to remove the cell contents from view but keep the output
 
  
  
