@@ -5,7 +5,6 @@
  - parameterize notebook
  - use a yaml file to feed parameters
  - outputing notebook file as html using nbconvert
- - pipe papermill execution to nbconvert
  
  ## Requirements
  - python >= 3.7
@@ -68,18 +67,18 @@
  Run papermill from the CLI to execute a notebook with parameter values and output as a new file using this basic syntax.
  
  ```console
- foo@bar:~$ papermill template.ipynb output.ipynb -p param1 1.0 -p param2 True
+ (myenv) foo@bar:~$ papermill template.ipynb output.ipynb -p param1 1.0 -p param2 True
  ```
  
  For our example using the chaos_game_template.ipynb file, we will use the below command:
  
  ```console
- foo@bar:~$ papermill chaos_game_template.ipynb chaos_game_defaultRNG.ipynb -p RNG default_rng
+ (myenv) foo@bar:~$ papermill chaos_game_template.ipynb chaos_game_defaultRNG.ipynb -p RNG default_rng
  ```
  
  If you can't remember what parameters are available to set in the notebook you can run the below command to get a description. Papermill will infer the parameters based on the parameters cell.
 ```console
-foo@bar:~$ papermill --help-notebook chaos_game_template.ipynb
+(myenv) foo@bar:~$ papermill --help-notebook chaos_game_template.ipynb
 Usage: papermill [OPTIONS] NOTEBOOK_PATH [OUTPUT_PATH]
 
 Parameters inferred for notebook 'chaos_game_template.ipynb':
@@ -92,15 +91,54 @@ Parameters inferred for notebook 'chaos_game_template.ipynb':
 Run the template again for other RNGs
 
  ```console
- foo@bar:~$ papermill chaos_game_template.ipynb chaos_game_PASCAL.ipynb -p RNG PASCAL -p VERTICES 6
+ (myenv) foo@bar:~$ papermill chaos_game_template.ipynb chaos_game_PASCAL.ipynb -p RNG PASCAL -p VERTICES 6
  ```
  ```console
- foo@bar:~$ papermill chaos_game_template.ipynb chaos_game_PASCAL.ipynb -p RNG RANDU -p VERTICES 6
+ (myenv) foo@bar:~$ papermill chaos_game_template.ipynb chaos_game_RANDU.ipynb -p RNG RANDU -p VERTICES 6
  ```
- Papermill will parse numeric inputs, to have them parsed as strings, use the -r flag for raw string instead of -p.
+ Papermill will parse numeric inputs. So to have them parsed as strings, use the -r flag for raw string instead of -p.
  
+ 
+ To get progress bar for a particular cell excution add the following comment to the top of the code cell
+ 
+ ```python
+ #papermill_description=NAME_OF_PROCESS
+ a = time_intensive_process()
+ ```
+ and the status bar will show with the name given.
+ 
+ Example, in the chaos_game_template we add a description comment to the cell encoding the animation as js html
+ ```python
+ #papermill_description=ENCODING_ANIMATION
+ mv = cg.movie()
+ HTML(mv)
+ ```
+ and the console looks like this
+ ```console
+ (myenv) foo@bar:~$ papermill chaos_game_template.ipynb chaos_game_RANDU.ipynb -p RNG RANDU -p VERTICES 6
+ Input Notebook:  chaos_game_template.ipynb
+Output Notebook: chaos_game_PASCAL.ipynb
+
+ Executing:   0%|                                                                                                                                   | 0/9 [00:00<?, ?cell/s]Executing notebook with kernel: myenv
+Executing:  67%|██████████████████████████████████████████████████████████████████████████████████                                         | 6/9 [00:03<00:01,  2.10cell/s]No handler found for comm target 'matplotlib'
+Executing ENCODING_ANIMATION: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████| 9/9 [01:03<00:00,  7.09s/cell]
+```
  
  ## Use a YAML file 
  ```console
- foo@bar:~$ papermill chaos_game_template.ipynb chaos_game_BCSLIB.ipynb -f parameters.yaml
+ (myenv) foo@bar:~$ papermill chaos_game_template.ipynb chaos_game_BCSLIB.ipynb -f parameters.yaml
+ ```
+ 
+ ## Convert Notebook to Other Format From CLI
+ 
+ You can use nbconvert to convert the output notebooks into other formats for sharing or publishing, such as HTML. 
+ 
+ Convert one notebook:
+ ```console
+ (myenv) foo@bar:~$ jupyter nbconvert --to html chaos_game_PASCAL.ipynb
+ ```
+ 
+ Or convert many:
+ ```console
+ (myenv) foo@bar:~$ jupyter nbconvert --to html chaos_game_*.ipynb
  ```
