@@ -68,3 +68,16 @@
  
  ```console
  foo@bar:~$ papermill chaos_game_template.ipynb chaos_game_defaultRNG.ipynb -p LCG 
+ ```
+ 
+ If you can't remember what parameters are available to set in the notebook you can run the below command to get a description. Papermill will infer the parameters based on the parameters cell.
+```console
+foo@bar:~$ papermill --help-notebook chaos_game_template.ipynb
+Usage: papermill [OPTIONS] NOTEBOOK_PATH [OUTPUT_PATH]
+
+Parameters inferred for notebook 'chaos_game_template.ipynb':
+  RNG: Unknown type (default 'default_rng')
+  SEED: Unknown type (default 2653589793)
+  VERTICES: Unknown type (default 4)
+  COORDS: Unknown type (default 3000)
+```
