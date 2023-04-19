@@ -25,7 +25,17 @@
  
  ## Using Cell Tags in a Jupyter Notebook
  
- A list of useful cell tags for controling the look of HTML output. 
+ Tags mark cells with metadata that can be used by other programs which process the notebook file. 
+ 
+ Add tags to a cell using the drop down menu: 
+ 
+ ![Tags](jupyter_tags.png)
+ 
+ To parameterize a jupyter notebook we can put every parameter that we might want to control from the CLI in a cell with the tag 'parameters'. This tells papermill to insert a cell just below this cell with the parameters and the values set at the CLI.
+ 
+ ![ParametersInjected](injected_parameters.png)
+ 
+A list of useful cell tags for controling the look of HTML output. 
  
 Tags with 'hide' will hide the content with a toggle button 
 
