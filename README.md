@@ -142,3 +142,15 @@ Executing ENCODING_ANIMATION: 100%|███████████████
  ```console
  (myenv) foo@bar:~$ jupyter nbconvert --to html chaos_game_*.ipynb
  ```
+ 
+ To modify what is included in the html you can specify with cell tags and the flag 
+ 
+ - TagRemovePreprocessor.remove_cell_tags 
+         to remove cell and its outputs
+ - TagRemovePreprocessor.remove_all_outputs_tags 
+         removes entire output areas on cells tagged with these values
+ - TagRemovePreprocessor.remove_input_tags 
+         removes inputs tagged with these values
+
+ 
+ --TagRemovePreprocessor.enabled=True --TagRemovePreprocessor.remove_cell_tags remove_cell --TagRemovePreprocessor.remove_input_tags remove_input
