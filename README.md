@@ -28,6 +28,13 @@
  A list of useful cell tags for controling the look of HTML output. 
  
  
+
+ - hide-input tag to hide the cell inputs
+
+ - hide-output to hide the cell outputs
+
+ - hide-cell to hide the entire cell
+
  
  
  ## Setting the Notebook Environment to Run in a Conda Environment
