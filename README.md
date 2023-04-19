@@ -34,22 +34,6 @@
  To parameterize a jupyter notebook we can put every parameter that we might want to control from the CLI in a cell with the tag 'parameters'. This tells papermill to insert a cell just below this cell with the parameters and the values set at the CLI.
  
  ![ParametersInjected](injected_parameters.png)
- 
-A list of useful cell tags for controling the look of HTML output. 
- 
-Tags with 'hide' will hide the content with a toggle button 
-
- - hide-input tag to hide the cell inputs
-
- - hide-output to hide the cell outputs
-
- - hide-cell to hide the entire cell
- 
- Whereas tags with 'remove' remove the content from view altogether
- 
- - remove-cell to remove cell and its output from the view
- 
- - remove-input to remove the cell contents from view but keep the output
 
  
  
@@ -90,7 +74,7 @@ Tags with 'hide' will hide the content with a toggle button
  For our example using the chaos_game_template.ipynb file, we will use the below command:
  
  ```console
- foo@bar:~$ papermill chaos_game_template.ipynb chaos_game_defaultRNG.ipynb -p LCG 
+ foo@bar:~$ papermill chaos_game_template.ipynb chaos_game_defaultRNG.ipynb -p RNG default_rng
  ```
  
  If you can't remember what parameters are available to set in the notebook you can run the below command to get a description. Papermill will infer the parameters based on the parameters cell.
@@ -104,3 +88,19 @@ Parameters inferred for notebook 'chaos_game_template.ipynb':
   VERTICES: Unknown type (default 4)
   COORDS: Unknown type (default 3000)
 ```
+
+Run the template again for other RNGs
+
+ ```console
+ foo@bar:~$ papermill chaos_game_template.ipynb chaos_game_PASCAL.ipynb -p RNG PASCAL -p VERTICES 6
+ ```
+ ```console
+ foo@bar:~$ papermill chaos_game_template.ipynb chaos_game_PASCAL.ipynb -p RNG RANDU -p VERTICES 6
+ ```
+ Papermill will parse numeric inputs, to have them parsed as strings, use the -r flag for raw string instead of -p.
+ 
+ 
+ ## Use a YAML file 
+ ```console
+ foo@bar:~$ papermill chaos_game_template.ipynb chaos_game_BCSLIB.ipynb -f parameters.yaml
+ ```
