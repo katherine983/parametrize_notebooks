@@ -152,5 +152,8 @@ Executing ENCODING_ANIMATION: 100%|███████████████
  - TagRemovePreprocessor.remove_input_tags 
          removes inputs tagged with these values
 
+ ```console
+ (myenv) foo@bar:~$ jupyter nbconvert --to html chaos_game_*.ipynb  --TagRemovePreprocessor.enabled=True --TagRemovePreprocessor.remove_cell_tags remove_cell --TagRemovePreprocessor.remove_input_tags remove_input
+ ```
  
- --TagRemovePreprocessor.enabled=True --TagRemovePreprocessor.remove_cell_tags remove_cell --TagRemovePreprocessor.remove_input_tags remove_input
+
