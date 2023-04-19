@@ -26,7 +26,7 @@ def LCG(seed=1, **params):
         # b = 0
         # m = 2**31 - 1
         x = (a*x + b) % m
-        return x / m
+        return x
     def integers(low, high=None, points=1):
         
         if high is None:
